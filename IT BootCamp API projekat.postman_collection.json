@@ -1,0 +1,2941 @@
+{
+	"info": {
+		"_postman_id": "ace49674-84c6-4864-aa64-3885ef7d3ff0",
+		"name": "IT BootCamp API projekat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "GET/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "950317ec-091e-4da4-8a2c-02907617a866",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b14f4af8-b140-4b9e-96f8-f3e744f09117",
+								"exec": [
+									"bodyData = JSON.parse(responseBody)\r",
+									"value = bodyData.verification\r",
+									"console.log(value)\r",
+									"\r",
+									"pm.environment.set(\"verify_id\", value);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has properties email and name\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('email');\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('name');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "it should GET profile"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/Profile - error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a096006-bdae-477b-bc92-6168ddef288f",
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "without token and it should not GET profile"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/token error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e940cc67-ae32-4aca-9d05-4d570dd0a105",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/token",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57ffb66b-6d3b-49a6-945f-ab0d1c4a7dc7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property token\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('token');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/token",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d093e1ad-3de5-4b00-8e8c-34c43734033d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property docs\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('docs');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property docs is an array\", function () {\r",
+									"    pm.expect(pm.response.json().docs).to.be.an('array');\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"idData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"id_value = idData.docs[0]._id\r",
+									"pm.environment.set(\"id_user\", id_value);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/users with filter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "220bf5e1-931f-4152-8ebf-d19eaa02566f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property docs\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('docs');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property docs is an array\", function () {\r",
+									"    pm.expect(pm.response.json().docs).to.be.an('array');\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Property docs is an array with length 1\", function () {\r",
+									"    pm.expect(pm.response.json().docs).to.have.length(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property docs[0] has property email value admin@admin.com\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json().docs[0]).to.have.property('email').to.equal('admin@admin.com');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "filter",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "fields",
+									"value": "name,email,city,country,phone",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users?filter=admin&fields=name,email,city,country,phone",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "admin"
+								},
+								{
+									"key": "fields",
+									"value": "name,email,city,country,phone"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/cities with filter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ec69c552-053d-41d4-9183-d5463ba5d793",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property docs\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('docs');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property docs is an array\", function () {\r",
+									"    pm.expect(pm.response.json().docs).to.be.an('array');\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Property docs is an array with length 1\", function () {\r",
+									"    pm.expect(pm.response.json().docs).to.have.length(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property docs[0] has property name value Bucaramanga\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json().docs[0]).to.have.property('name').to.equal('Bucaramanga');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"idData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"id_value = idData.docs[0]._id\r",
+									"pm.environment.set(\"id_city\", id_value);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "filter",
+									"value": "Bucaramanga",
+									"type": "text"
+								},
+								{
+									"key": "fields",
+									"value": "name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/cities?filter=Bucaramanga&fields=name",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "Bucaramanga"
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /user/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "839c61d1-1f04-469f-8786-6ad41f2defe4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"test if body contains name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body should contain id equal to id sent\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData._id).to.eql(\"5aa1c2c35ef7a4e97b5e995b\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{id_user_user}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/{{id_user_user}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{id_user_user}}"
+							]
+						},
+						"description": "get users id"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/users - error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88420746-b0fd-4a1d-b479-d29318d95726",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "without token"
+					},
+					"response": []
+				},
+				{
+					"name": "GET /cities - error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c110a130-4cbf-4060-9936-1bba3a02239b",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/cities",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities"
+							]
+						},
+						"description": "it should NOT be able to consume the route since no token was sent"
+					},
+					"response": []
+				},
+				{
+					"name": "GET /cities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bef9326b-ac99-403e-b761-0c8d8c6a9ea4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property docs is an array\", function () {\r",
+									"    pm.expect(pm.response.json().docs).to.be.an('array');\r",
+									"})\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/cities",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities"
+							]
+						},
+						"description": "it should GET all the cities"
+					},
+					"response": []
+				},
+				{
+					"name": "GET /cities/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "19092cc5-22a5-48ce-96fe-49b6f03a2bbb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has properties name, id\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('name');\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('_id').to.equal(pm.environment.get(\"id_city\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{id_city}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/cities/{{id_city}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities",
+								"{{id_city}}"
+							]
+						},
+						"description": "it should GET all the cities"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "POST/register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bebb33b3-fed0-441e-b17f-74422f29d391",
+								"exec": [
+									"\r",
+									"tokenData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"token_value = tokenData.token\r",
+									"console.log(token_value)\r",
+									"\r",
+									"pm.environment.set(\"token_value\", token_value);\r",
+									"\r",
+									"let email = _.random(1000) + \"@domain.com\";\r",
+									"pm.environment.set(\"randomEmail\", email);\r",
+									"\r",
+									"emailData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"usedEmail = emailData.user.email\r",
+									"console.log(usedEmail)\r",
+									"\r",
+									"pm.environment.set(\"usedEmail\", usedEmail);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has properties token and user\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('token');\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f1c6da4d-7330-45f5-8af7-397ca7ff9150",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{randomEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "it should POST register"
+					},
+					"response": []
+				},
+				{
+					"name": "POST/register -error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63329763-cc20-4454-ada4-9d95c15a68d2",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has property errors\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('errors');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains error message - email already exists\", function () {\r",
+									"    pm.response.to.have.body('{\"errors\":{\"msg\":\"EMAIL_ALREADY_EXISTS\"}}')\r",
+									"})\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{usedEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "it should NOT POST a register if email already exists\r\ntestiranje registracije sa postojecim emailom"
+					},
+					"response": []
+				},
+				{
+					"name": "POST/verify",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "87b35d22-bdbf-4c3f-9b52-563d96428387",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has properties email and verified\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('email');\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('verified').to.equal(true);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{verify_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/verify",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "979a725d-3c21-4c91-aac2-0443c65f3685",
+								"exec": [
+									"pm.globals.set(\"url\", \"https://api-demo.daniel-avellaneda.com\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1250c1-7f50-46a7-bf77-416b465f0ad3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has properties token and user\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('token');\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{usedEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/forgot",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8c4d8cd-13b8-42db-9235-9b92eaf5d056",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body should contain message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"msg\":\"RESET_EMAIL_SENT\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "lela@sharklasers.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/forgot",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d9db56d-abe2-4bc4-9c9c-de419e51a202",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body should contain message: PASSWORD_CHANGED\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"msg\":\"PASSWORD_CHANGED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "658a3549-4544-4c1e-9ae8-4ff993dc1c23",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "sifra12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/reset",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/login admin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2bc89d0d-7741-4c07-b5a9-aeb7138adeca",
+								"exec": [
+									"pm.globals.set(\"url\", \"https://api-demo.daniel-avellaneda.com\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "bb426511-ba87-486c-b0d4-18a2e7b88ae6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property token\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('token');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"tokenData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"token_value = tokenData.token\r",
+									"console.log(token_value)\r",
+									"\r",
+									"pm.environment.set(\"adminToken_value\", token_value);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{adminEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{adminPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/login user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6e4716b1-fa38-464f-9bd8-43899f0bb26e",
+								"exec": [
+									"pm.globals.set(\"url\", \"https://api-demo.daniel-avellaneda.com\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1ad1f1d4-8214-41f9-95ce-5cff18ab0ba0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property token\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('token');\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"tokenData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"token_value = tokenData.token\r",
+									"console.log(token_value)\r",
+									"\r",
+									"pm.environment.set(\"userToken_value\", token_value);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{userEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{userPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37c55967-86ca-41e9-a17c-8e67d8fd77ed",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property name\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('name');\r",
+									"});\r",
+									"pm.test(\"Response body has property  _id\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('_id');\r",
+									"});\r",
+									"pm.test(\"Response body has property  email\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('email');\r",
+									"});\r",
+									"pm.test(\"Response body has property  verification\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('verification');\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"idData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"id_value = idData._id\r",
+									"pm.environment.set(\"id_user\", id_value);\r",
+									"\r",
+									"emailData = JSON.parse(responseBody)\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"email_value = emailData.email\r",
+									"pm.environment.set(\"email_user\", email_value);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{$randomFirstName}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{$randomEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{$randomPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{$randomPhoneNumberExt}}",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "{{$randomCountry}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/user error mail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f89cbf7-bb01-4c44-a800-f77ab55cba11",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"test if body contains errors\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									";\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{$randomFirstName}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{email_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{$randomPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{$randomPhoneNumberExt}}",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "{{$randomCountry}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/cities error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "345c5e7f-fd54-4344-a499-1dd074bf47e8",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"test if body contains errors\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									";\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/cities",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/cities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3fff615b-3d6c-4059-b864-c6e740f66ebe",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property name\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('name');\r",
+									"});\r",
+									"pm.test(\"Response body has property  _id\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('_id');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Beograd",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/cities",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/cities error exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "393e9c3b-c39f-438f-a91a-109c0b2b25d9",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"test if body contains errors\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									";\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Beograd",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/cities",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities"
+							]
+						},
+						"description": "it should NOT POST a city that already exists"
+					},
+					"response": []
+				},
+				{
+					"name": "POST/user error role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3935dc85-ecdf-44ac-8293-45e5e9dce913",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"test if body contains errors\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{$randomFirstName}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{$randomEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{$randomPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "master",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{$randomPhoneNumberExt}}",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "{{$randomCountry}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/user error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62f2a326-9840-4187-a9e1-90d8d3fa4c22",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"test if body contains error message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{$randomFirstName}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "{{$randomEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{$randomPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{$randomPhoneNumberExt}}",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "{{$randomCountry}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/profile/changePassword error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36b2f5c6-6578-443d-873f-d6bf15ba3671",
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has property errors\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('errors')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property errors has property msg wrong WRONG_PASSWORD\", function () {\r",
+									"pm.expect(pm.response.json().errors).to.have.property('msg');\r",
+									"pm.expect(pm.response.json().errors.msg[0]).to.have.property('msg').to.equal('WRONG_PASSWORD');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "oldPasword",
+									"value": "sifra55555",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "sifra101010",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile/changePassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"changePassword"
+							]
+						},
+						"description": "it should NOT change password"
+					},
+					"response": []
+				},
+				{
+					"name": "POST/profile/changePassword errorShort",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66f5379c-dfb0-4d40-a0ef-e6a2f327a6ee",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has property errors\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('errors')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property errors has property msg PASSWORD_TOO_SHORT_MIN_5\", function () {\r",
+									"    pm.expect(pm.response.json().errors).to.have.property('msg');\r",
+									"    pm.expect(pm.response.json().errors.msg[0]).to.have.property('msg').to\r",
+									"        .equal('PASSWORD_TOO_SHORT_MIN_5');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "oldPasword",
+									"value": "sifra123",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "lela",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile/changePassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"changePassword"
+							]
+						},
+						"description": "it should NOT change password"
+					},
+					"response": []
+				},
+				{
+					"name": "POST/profile/changePassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5bbf0077-7a0c-404c-a62c-f0688ecdace6",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Property has property msg PASSWORD_CHANGED\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('msg').to.equal('PASSWORD_CHANGED');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "oldPasword",
+									"value": "sifra123",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "lela12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile/changePassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"changePassword"
+							]
+						},
+						"description": "it should change password"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "DELETE /user/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36663ed6-3de9-45da-babc-9723708b4642",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has property msg with value deleted\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('msg').to.equal('DELETED')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/users/{{id_user}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{id_user}}"
+							]
+						},
+						"description": "it should DELETE a user given the id"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /cities/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cade1942-5dfe-48a5-880a-ac80ad519662",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has property msg with value deleted\", function() {\r",
+									"\r",
+									"pm.expect(pm.response.json()).to.have.property('msg').to.equal('DELETED')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/cities/{{id_city}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities",
+								"{{id_city}}"
+							]
+						},
+						"description": "it should DELETE a city given the id"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PATCH",
+			"item": [
+				{
+					"name": "PATCH/user/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "78b9d058-0b1e-4461-8b96-33dacc37a8cb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has properties name, id, email\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('name').to.equal(\"Danijelita\");\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('_id').to.equal(pm.environment.get(\"id_user_user\"));\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('email').to.equal(\"danijelita@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{id_user_user}}",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Danijelita",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "danijelita@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{$randomPhoneNumberExt}}",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "{{$randomCountry}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/{{id_user_user}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{id_user_user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH/user/:id error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "78b9d058-0b1e-4461-8b96-33dacc37a8cb",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has property errors\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('errors')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{id_user_user}}",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Danijelita",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{$randomPhoneNumberExt}}",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "{{$randomCountry}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/{{id_user_user}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{id_user_user}}"
+							]
+						},
+						"description": "it should NOT UPDATE a user with email that already exists"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH/cities/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3d163b22-4bd1-432c-99b4-93690bbcd5cd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has properties name, id\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('name').to.equal('Paris');\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('_id').to.equal(pm.environment.get(\"id_city\"));\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{id_city}}",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Paris",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/cities/{{id_city}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cities",
+								"{{id_city}}"
+							]
+						},
+						"description": "it should UPDATE a city given the id"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /profile -error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f20e058c-bb5c-4668-8f46-a555857f9334",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has property errors\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('errors')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{$randomPhoneNumberExt}}",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "{{$randomCountry}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "it should NOT UPDATE profile empty name/email"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /profile -error mail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82e066a0-4758-44e0-9369-b656fad311c4",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has property errors\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('errors')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "programmer@programmer.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Test123456",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123123123",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Bucaramanga",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Colombia",
+									"type": "text"
+								},
+								{
+									"key": "urlTwitter",
+									"value": "https://hello.com",
+									"type": "text"
+								},
+								{
+									"key": "urlGitHub",
+									"value": "https://hello.io",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "it should NOT UPDATE profile with email that already exists"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1350c5d-ae64-49ad-9fb4-98c7bc38172c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "urlTwitter",
+									"value": "https://hello.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Test123456",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123123123",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Bucaramanga",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Colombia",
+									"type": "text"
+								},
+								{
+									"key": "urlGitHub",
+									"value": "https://hello.io",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "it should UPDATE profile"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /profile error url",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "616366de-20a0-4c54-85ba-003ba8aa783b",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Response body is json object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object')\r",
+									"});\r",
+									"pm.test(\"Response body has property errors\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('errors')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property errors has property msg NOT_A_VALID_URL\", function () {\r",
+									"    pm.expect(pm.response.json().errors).to.have.property('msg');\r",
+									"    pm.expect(pm.response.json().errors.msg[0]).to.have.property('msg').to\r",
+									"        .equal('NOT_A_VALID_URL');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken_value}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "urlTwitter",
+									"value": "hello",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Test123456",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123123123",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Bucaramanga",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Colombia",
+									"type": "text"
+								},
+								{
+									"key": "urlGitHub",
+									"value": "hello",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "it should NOT UPDATE profile with not valid URL´s"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "bd1c92a1-6a16-4d39-9411-d7a47d49270d",
+			"key": "URL",
+			"value": "https://api-demo.daniel-avellaneda.com/\n",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
